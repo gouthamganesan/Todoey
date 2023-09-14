@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22113"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +45,14 @@
                             <outlet property="delegate" destination="Pwm-9c-Kz3" id="9Yd-xy-khV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Todoey" id="ft8-vz-4sh"/>
+                    <navigationItem key="navigationItem" title="Todoey" id="ft8-vz-4sh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="maz-cm-b07">
+                            <color key="tintColor" name="foregroundLight"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Pwm-9c-Kz3" id="HKf-Rb-Kn7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewP-nR-wxx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,11 +66,18 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eR8-um-wgw">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="primaryDark"/>
                         <navigationBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" red="0.63921568630000003" green="0.78039215689999997" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="accentDark"/>
+                            <textAttributes key="titleTextAttributes">
+                                <color key="textColor" name="foregroundLight"/>
+                            </textAttributes>
                         </navigationBarAppearance>
                         <navigationBarAppearance key="scrollEdgeAppearance">
-                            <color key="backgroundColor" red="0.63921568630000003" green="0.78039215689999997" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="accentDark"/>
+                            <textAttributes key="titleTextAttributes">
+                                <color key="textColor" name="foregroundLight"/>
+                            </textAttributes>
                         </navigationBarAppearance>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -76,6 +91,15 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="accentDark">
+            <color red="0.51764705882352935" green="0.34509803921568627" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="foregroundLight">
+            <color red="0.89803921568627454" green="0.91764705882352937" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryDark">
+            <color red="0.28627450980392155" green="0.30196078431372547" blue="0.37254901960784315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
