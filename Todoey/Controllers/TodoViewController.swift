@@ -12,7 +12,7 @@ class TodoViewController: UITableViewController {
     
     var itemArray = [Item]()
     
-    var defaults = UserDefaults.standard
+    let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("ItemArray.plist")
     
     override func viewDidLoad() {
         
@@ -28,9 +28,7 @@ class TodoViewController: UITableViewController {
         newItem2.title = "Get Eleven's attention"
         itemArray.append(newItem2)
         
-        //        if let items = defaults.array(forKey: "TodoList") as? [String] {
-        //            itemArray = items
-        //        }
+        loadItems()
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -62,9 +60,10 @@ class TodoViewController: UITableViewController {
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        itemArray[indexPath.row].done.toggle()
         
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        self.saveItems()
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -87,10 +86,8 @@ class TodoViewController: UITableViewController {
             anItem.title = textField.text!
             
             self.itemArray.append(anItem)
-            
-            self.defaults.setValue(["Find Mike", "Buy Eggos", "Destroy Demogorgon"], forKey: "TodoList")
-            
-            self.tableView.reloadData()
+                
+            self.saveItems()
         }
         
         alert.addTextField { alertTextField in
@@ -104,6 +101,27 @@ class TodoViewController: UITableViewController {
         
     }
     
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: url!)
+        } catch {
+            print("Error encodign and saving data, \(error)")
+        }
+
+        tableView.reloadData()
+    }
     
+    func loadItems() {
+        if let data = try? Data(contentsOf: url!) {
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error decoding data, \(error)")
+            }
+        }
+    }
 }
 
